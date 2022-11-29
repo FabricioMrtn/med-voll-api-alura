@@ -1,23 +1,38 @@
 package med.voll.api.model;
 
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity(name="Medico")
+@Table(name="medicos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Medico {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
 	private String crm;
+	@Enumerated
 	private Especialidade especialidade;
+	@Embedded
 	private Endereco endereco;
-	
-	public Medico(String nome, String email, String telefone, String crm, Especialidade especialidade,
-			Endereco endereco) {
-		this.nome = nome;
-		this.email = email;
-		this.telefone = telefone;
-		this.crm = crm;
-		this.especialidade = especialidade;
-		this.endereco = endereco;
-	}
-	
+		
 	@Override
 	public String toString() {
 		return "/n-------------------------------" 

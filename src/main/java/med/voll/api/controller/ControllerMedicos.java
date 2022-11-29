@@ -1,5 +1,7 @@
 package med.voll.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,22 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import med.voll.api.dto.MedicoDto;
 import med.voll.api.model.Medico;
+import med.voll.api.service.MedicoService;
 
 @RestController
 @RequestMapping("/medicos")
 public class ControllerMedicos {
 
-//	private final service
+	private final MedicoService medService;
 	
-	public ControllerMedicos(/**Service service**/) {
-//		service
+	public ControllerMedicos(MedicoService medService){
+		this.medService = medService;
 	}
 	
 	@GetMapping
-	public ResponseEntity<Medico> findAll(){
-		//List<Medico> result = service.findAll
-		return null;//ResponseEntity.ok(result)
-		
+	public String hello() {
+		return "pagina inicial";
+	}
+	
+	@GetMapping("/todos")
+	public ResponseEntity<List<Medico>> findAll(){
+		List<Medico> result = medService.findAll();
+		return ResponseEntity.ok(result);		
 	}
 	
 	@PostMapping

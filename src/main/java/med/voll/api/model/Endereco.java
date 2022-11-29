@@ -1,5 +1,17 @@
 package med.voll.api.model;
 
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Embeddable
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Endereco {
 	private String logradouro;
 	private String numero;
@@ -16,6 +28,5 @@ public class Endereco {
 		this.uf = uf;
 		this.cep = cep;
 	}
-	
 	
 }

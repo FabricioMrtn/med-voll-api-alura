@@ -2,6 +2,7 @@ package med.voll.api.model;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import med.voll.api.dto.MedicoDto;
 
 @Entity(name="Medico")
 @Table(name="medicos")
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Medico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +30,16 @@ public class Medico {
 	private String email;
 	private String telefone;
 	private String crm;
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
 	@Embedded
 	private Endereco endereco;
-		
-	@Override
-	public String toString() {
-		return "/n-------------------------------" 
-				+ "/nNome: "+ this.nome 
-				+ "/nE-mail: " + this.email 
-				+ "/nCRM: " + this.crm 
-				+ "/nEspecialidade: " + this.especialidade 
-				+ "/n-------------------------------" ;
-	}
 	
+	public Medico(MedicoDto dados) {
+		this.nome = dados.nome();
+		this.email = dados.email();
+		this.crm = dados.crm();
+		this.especialidade = dados.especialidade();
+		this.endereco = new Endereco(dados.endereco());
+	}
 }

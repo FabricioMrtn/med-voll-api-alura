@@ -30,9 +30,10 @@ public class ControllerPaciente {
 	}
 		
 	@PostMapping
-	public ResponseEntity<PacienteDto> create(@RequestBody PacienteDto paciente) {
-		PacienteDto result = pacServ.create(paciente);
+	public ResponseEntity<Paciente> create(@RequestBody Paciente paciente) {
+		Paciente result = pacServ.create(paciente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(result);
 	}
 	
 }
+ 

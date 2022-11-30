@@ -20,7 +20,7 @@ public class PacienteService {
 		return pacRepository.findAll();
 	}
 	
-	public PacienteDto create(PacienteDto paciente) {
+	public Paciente create(Paciente paciente) {
 		return pacRepository.save(paciente);
 	}
 }

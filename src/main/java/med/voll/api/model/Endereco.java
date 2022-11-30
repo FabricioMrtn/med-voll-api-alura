@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import med.voll.api.dto.EnderecoDto;
 
 @Embeddable
 @Getter
@@ -20,13 +21,15 @@ public class Endereco {
 	private String cidade; 
 	private String uf;
 	private String cep;
-	
-	public Endereco(String logradouro, String bairro, String cidade, String uf, String cep) {
-		this.logradouro = logradouro;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.uf = uf;
-		this.cep = cep;
+
+	public Endereco(EnderecoDto dados) {
+		this.logradouro = dados.logradouro();
+		this.bairro = dados.bairro();
+		this.cidade = dados.cidade();
+		this.cep = dados.cep();
+		this.uf = dados.uf();
+		this.complemento = dados.complemento();
+		this.numero = dados.numero();		
 	}
 	
 }

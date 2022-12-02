@@ -31,6 +31,10 @@ public class Paciente {
 	@Embedded
 	private Endereco endereco;
 	
+	public Paciente() {
+	
+	}
+	
 	public Paciente(PacienteDto dados) {
 		this.nome = dados.nome();
 		this.email = dados.email();

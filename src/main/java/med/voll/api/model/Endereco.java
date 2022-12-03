@@ -21,6 +21,8 @@ public class Endereco {
 	private String cidade; 
 	private String uf;
 	private String cep;
+	
+	public Endereco() {}
 
 	public Endereco(EnderecoDto dados) {
 		this.logradouro = dados.logradouro();

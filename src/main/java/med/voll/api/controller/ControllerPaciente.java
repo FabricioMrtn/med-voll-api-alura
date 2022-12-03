@@ -1,9 +1,9 @@
 package med.voll.api.controller;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,28 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import med.voll.api.dto.PacienteDto;
 import med.voll.api.model.Paciente;
-import med.voll.api.service.PacienteService;
+import med.voll.api.repository.PacienteRepository;
+import med.voll.api.view.PacienteView;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/pacientes")
 public class ControllerPaciente {
-	private final PacienteService pacServ;
 	
-	public ControllerPaciente(PacienteService pacServ) {
-		this.pacServ = pacServ;
+	@Autowired
+	private PacienteRepository pacRep;
+	
+	@GetMapping
+	public Page<PacienteView> listar(Pageable paginacao){
+		return pacRep.findAll(paginacao).map(PacienteView::new);
 	}
 	
-	@GetMapping("/todos")
-	public ResponseEntity<List<Paciente>> findAll(){
-		List<Paciente> result = pacServ.findAll();
-		return ResponseEntity.ok(result);
-	}
-		
 	@PostMapping
-	public ResponseEntity<Paciente> create(@RequestBody Paciente paciente) {
-		Paciente result = pacServ.create(paciente);
-		return ResponseEntity.status(HttpStatus.CREATED).body(result);
+	@Transactional
+	public void cadastrar(@RequestBody PacienteDto dados) {
+		pacRep.save(new Paciente(dados));
 	}
-	
 }
  

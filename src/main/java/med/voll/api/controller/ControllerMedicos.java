@@ -31,7 +31,7 @@ public class ControllerMedicos {
 	
 	@PostMapping
 	@Transactional
-	public void create(@RequestBody @Valid MedicoDto dados) {
+	public void cadastrar(@RequestBody @Valid MedicoDto dados) {
 		medRep.save(new Medico(dados));
 	}
 	

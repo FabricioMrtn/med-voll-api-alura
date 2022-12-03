@@ -1,9 +1,8 @@
 package med.voll.api.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import jakarta.validation.Valid;
 import med.voll.api.dto.MedicoDto;
 import med.voll.api.model.Medico;
 import med.voll.api.repository.MedicoRepository;
-import med.voll.api.service.MedicoService;
 
 @RestController
 @RequestMapping("/medicos")
@@ -23,18 +21,10 @@ public class ControllerMedicos {
 
 	@Autowired
 	private MedicoRepository medRep;
-//	private final MedicoService medService;
-
 	
 	@GetMapping
-	public String hello() {
-		return "pagina inicial";
-	}
-	
-	@GetMapping("/todos")
-	public ResponseEntity<List<Medico>> findAll(){
-		List<Medico> result = medRep.findAll();
-		return ResponseEntity.ok(result);		
+	public Page<MedicoView> listar(Pageable paginacao) {
+		return medRep.findAll(paginacao).map(MedicoView::new);
 	}
 	
 	@PostMapping

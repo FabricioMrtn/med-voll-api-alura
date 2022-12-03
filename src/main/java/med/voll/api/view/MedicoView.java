@@ -1,4 +1,4 @@
-package med.voll.api.controller;
+package med.voll.api.view;
 
 import med.voll.api.model.Especialidade;
 import med.voll.api.model.Medico;

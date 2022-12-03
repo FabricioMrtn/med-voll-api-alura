@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import med.voll.api.dto.MedicoDto;
+import med.voll.api.dto.ListaMedico;
 import med.voll.api.model.Medico;
 import med.voll.api.repository.MedicoRepository;
-import med.voll.api.view.MedicoView;
 
 @RestController
 @RequestMapping("/medicos")
@@ -25,8 +25,8 @@ public class ControllerMedicos {
 	private MedicoRepository medRep;
 	
 	@GetMapping
-	public Page<MedicoView> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-		return medRep.findAll(paginacao).map(MedicoView::new);
+	public Page<ListaMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+		return medRep.findAll(paginacao).map(ListaMedico::new);
 	}
 	
 	@PostMapping

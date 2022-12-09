@@ -36,10 +36,12 @@ public class Medico {
 	private Especialidade especialidade;
 	@Embedded
 	private Endereco endereco;
+	private boolean ativo;
 	
 	public Medico() {}
 	
 	public Medico(MedicoDto dados) {
+		this.ativo = true;
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.crm = dados.crm();
@@ -115,6 +117,10 @@ public class Medico {
 			this.endereco.atualizar(dados.endereco());
 		}
 		
+	}
+
+	public void desativar() {
+		this.ativo = false;		
 	}
 	
 	

@@ -31,7 +31,7 @@ public class ControllerMedicos {
 	
 	@GetMapping
 	public Page<ListaMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-		return medRep.findAll(paginacao).map(ListaMedico::new);
+		return medRep.findAllByAtivoTrue(paginacao).map(ListaMedico::new);
 	}
 		
 	@PostMapping
@@ -53,7 +53,8 @@ public class ControllerMedicos {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public void deletar(@PathVariable Long id) {
-		medRep.deleteById(id);
+		var medico = medRep.getReferenceById(id);
+		medico.desativar();
 	}
 	
 }

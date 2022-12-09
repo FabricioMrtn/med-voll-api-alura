@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,17 +39,16 @@ public class ControllerMedicos {
 	
 	@PutMapping
 	@Transactional
-	public void atualizar(@Valid AtualizaDadosMedico dados) {
+	public void atualizar(@RequestBody @Valid AtualizaDadosMedico dados) {
 		var medico = medRep.getReferenceById(dados.id());
 		medico.atualizar(dados);
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	@GetMapping("/{id}")
-//	public Page<ListaMedico> buscaPorId(Long id) {
-//		return (Page<ListaMedico>) medRep.findById(id).orElseThrow(
-//				() -> new MedicoNaoEncontradoException(id));
-//		
-//	}
+	@PostMapping("/delete")
+	@Transactional
+	public void deletar(@RequestBody @Valid AtualizaDadosMedico dados) {
+		System.out.println("          -------- " + dados.id() + " --------");
+		medRep.deleteById(dados.id());
+	}
 	
 }

@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import med.voll.api.dto.AtualizaDadosMedico;
 import med.voll.api.dto.ListaMedico;
 import med.voll.api.dto.MedicoDto;
+import med.voll.api.exceptions.MedicoNaoEncontradoException;
 import med.voll.api.model.Medico;
 import med.voll.api.repository.MedicoRepository;
 
@@ -41,6 +42,9 @@ public class ControllerMedicos {
 	@PutMapping
 	@Transactional
 	public void atualizar(@RequestBody @Valid AtualizaDadosMedico dados) {
+		if(dados.id() == null) {
+			throw new MedicoNaoEncontradoException(dados.id());
+		}
 		var medico = medRep.getReferenceById(dados.id());
 		medico.atualizar(dados);
 	}

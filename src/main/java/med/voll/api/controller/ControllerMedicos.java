@@ -48,7 +48,6 @@ public class ControllerMedicos {
 	@DeleteMapping
 	@Transactional
 	public void deletar(@RequestBody @Valid AtualizaDadosMedico dados) {
-		System.out.println("          -------- " + dados.id() + " --------");
 		medRep.deleteById(dados.id());
 	}
 	
